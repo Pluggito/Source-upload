@@ -133,21 +133,24 @@ Analyze this real estate document and return a complete and structured JSON obje
   let aiResponse, cleanJSON;
   try {
     const response = await axios.post(
-      'https://api.meta-llama.com/v1/chat/completions',
+      'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        model: 'llama3-70b-8192',
         messages: [
           {
             role: 'system',
-            content: 'You are a helpful assistant that analyzes real estate documents and returns structured JSON data.'
+            content: 'You are a helpful assistant that analyzes real estate documents and returns structured JSON data. You are precise and accurate in your analysis.'
           },
           {
             role: 'user',
             content: prompt
           }
         ],
-        temperature: 0.7,
-        max_tokens: 4000
+        temperature: 0.3,
+        max_tokens: 4000,
+        top_p: 0.9,
+        frequency_penalty: 0.0,
+        presence_penalty: 0.0
       },
       {
         headers: {
