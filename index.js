@@ -24,6 +24,15 @@ if (!process.env.GEMINI_API_KEY) {
 }
 
 const app = express();
+
+// Configure CORS
+app.use(cors({
+  origin: ['https://location-analysis-drab.vercel.app', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 const upload = multer({
   dest: "uploads/",
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
@@ -38,7 +47,6 @@ if (!fs.existsSync(storageDir)) {
 }
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-app.use(cors());
 
 app.post("/upload", upload.single("file"), async (req, res) => {
   const file = req.file;
