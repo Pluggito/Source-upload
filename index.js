@@ -4,17 +4,22 @@ const multer = require("multer");
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const dotenv = require("dotenv");
-const axios = require("axios");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const prisma = require("./lib/prisma");
 
 dotenv.config();
 
 // Validate required environment variables
-const requiredEnvVars = ['LLAMA_API_KEY', 'DATABASE_URL'];
+const requiredEnvVars = ['GEMINI_API_KEY', 'DATABASE_URL'];
 const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
 
 if (missingEnvVars.length > 0) {
   console.error('❌ Missing required environment variables:', missingEnvVars);
+  process.exit(1);
+}
+
+if (!process.env.GEMINI_API_KEY) {
+  console.error("🚨 Missing GEMINI_API_KEY in .env file.");
   process.exit(1);
 }
 
@@ -41,6 +46,8 @@ if (!fs.existsSync(storageDir)) {
   fs.mkdirSync(storageDir);
 }
 
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
 app.post("/upload", upload.single("file"), async (req, res) => {
   const file = req.file;
 
@@ -62,10 +69,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     });
   }
 
-  // Limit the PDF text to a reasonable size
-  const maxTextLength = 8000; // Adjust this value based on your needs
-  const truncatedText = pdfText.slice(0, maxTextLength);
-
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
   const prompt = `
 Analyze this real estate document and return a complete and structured JSON object strictly matching the following format. Ensure all sections are included, even if some values are null or empty. Do not omit any fields.
 
@@ -131,42 +135,15 @@ Analyze this real estate document and return a complete and structured JSON obje
 
 - Carefully extract and map the relevant data from the PDF to this format.
 - Return only valid JSON and  PDF Content:
-  ${truncatedText}
+  ${pdfText}
   `;
 
   let aiResponse, cleanJSON;
   try {
-    const response = await axios.post(
-      'https://api.groq.com/openai/v1/chat/completions',
-      {
-        model: 'llama3-70b-8192',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a helpful assistant that analyzes real estate documents and returns structured JSON data. You are precise and accurate in your analysis.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        temperature: 0.3,
-        max_tokens: 4000,
-        top_p: 0.9,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${process.env.LLAMA_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        maxContentLength: Infinity,
-        maxBodyLength: Infinity
-      }
+    const result = await model.generateContent(
+      `${prompt}\n\n${pdfText.slice(0, 12000)}`
     );
-
-    aiResponse = response.data.choices[0].message.content.trim();
+    aiResponse = result.response.text().trim();
     cleanJSON = safeParseJSON(aiResponse);
 
     if (!isStructuredJSON(cleanJSON)) {
