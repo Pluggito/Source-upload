@@ -185,10 +185,22 @@ app.get("/data/latest", async (req, res) => {
       return res.status(404).json({ error: "No data found" });
     }
 
+    // Ensure all required fields are present
+    if (!latest.supplyPipeline || !latest.landSaleComparables || 
+        !latest.demographicTrends || !latest.proximityInsights || 
+        !latest.zoningOverlays) {
+      return res.status(500).json({ 
+        error: "Incomplete data structure in database" 
+      });
+    }
+
     res.json(latest);
   } catch (err) {
     console.error("❌ Failed to fetch data:", err);
-    res.status(500).json({ error: "Failed to fetch data" });
+    res.status(500).json({ 
+      error: "Failed to fetch data",
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 });
 
