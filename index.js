@@ -17,7 +17,7 @@ if (!process.env.GEMINI_API_KEY) {
 const app = express();
 const upload = multer({
   dest: "uploads/",
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
 });
 const PORT = process.env.PORT || 5000;
 const DEBUG_WRITE = process.env.DEBUG_WRITE === "true"; // toggle saving output
