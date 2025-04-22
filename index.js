@@ -102,7 +102,7 @@ Analyze this real estate document and return a complete and structured JSON obje
 }
 
 4. proximity_insights: {
-  highways: {state: string, sign: number,  name: string, distance: string}[],
+  highways: {state: string, sign: number,  name: string, distance: string time-traveled: string}[],
   ports: { name: string, distance: string, insights: string }[],
   airports: { name: string, distance: string }[],
   major_tenants: { name:string, company: string }[],
