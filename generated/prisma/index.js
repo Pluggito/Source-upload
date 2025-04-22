@@ -163,11 +163,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:pluggito25@localhost:5050/location-analysis"
+        "value": null
       }
     }
   },
