@@ -1,0 +1,174 @@
+{
+  "supply_pipeline": {
+    "nearby_developments": [],
+    "construction_timelines": [],
+    "property_type_mix": []
+  },
+  "land_sale_comparables": {
+    "price_per_sqft": null,
+    "zoning": null,
+    "parcel_size": null,
+    "recent_sales": [
+      {
+        "address": "Rock Lake Business Center",
+        "price": 100500000,
+        "date": "Jun-24",
+        "size": 256436,
+        "buyers": "Tishman Speyer",
+        "name": null,
+        "submarket": "South Florida (FL)",
+        "cap_rate": "4.9%",
+        "zoning": null
+      },
+      {
+        "address": "1 Debaun Rd",
+        "price": 41903580,
+        "date": "Jun-24",
+        "size": 132930,
+        "buyers": "Cabot",
+        "name": null,
+        "submarket": "Exit 8A (NJ)",
+        "cap_rate": "5.0%",
+        "zoning": null
+      },
+      {
+        "address": "Baylis 495 Business Park",
+        "price": 44000000,
+        "date": "May-24",
+        "size": 103500,
+        "buyers": "Bentall Green Oak",
+        "name": null,
+        "submarket": "Long Island",
+        "cap_rate": "5.1%",
+        "zoning": null
+      },
+      {
+        "address": "Blackstone Portfolio",
+        "price": 364500000,
+        "date": "May-24",
+        "size": 1233140,
+        "buyers": "Terreno Realty",
+        "name": null,
+        "submarket": "National (CA, NY, NJ)",
+        "cap_rate": "4.3%",
+        "zoning": null
+      },
+      {
+        "address": "Bridgepoint Maspeth (58 Maurice Ave)",
+        "price": 57000000,
+        "date": "Dec-23",
+        "size": 127587,
+        "buyers": "BRIDGE",
+        "name": null,
+        "submarket": "Queens",
+        "cap_rate": "3.3%",
+        "zoning": null
+      },
+      {
+        "address": "Northern NJ Core Industrial Portfolio",
+        "price": 116500000,
+        "date": "Nov-23",
+        "size": 404713,
+        "buyers": "TA Realty",
+        "name": null,
+        "submarket": "Fairfield (NJ)",
+        "cap_rate": "4.6%",
+        "zoning": null
+      },
+      {
+        "address": "39 Edgeboro Rd",
+        "price": 165776520,
+        "date": "Oct-23",
+        "size": 513240,
+        "buyers": "Blackstone",
+        "name": null,
+        "submarket": "Exit 8A (NJ)",
+        "cap_rate": "5.1%",
+        "zoning": null
+      },
+      {
+        "address": "Terminal Logistics Center (130 S Conduit Dr)",
+        "price": 136000000,
+        "date": "Mar-23",
+        "size": 336000,
+        "buyers": "Triangle Equities, Goldman",
+        "name": null,
+        "submarket": "Queens",
+        "cap_rate": "4.4%",
+        "zoning": null
+      },
+      {
+        "address": "640 Columbia Street",
+        "price": 330000000,
+        "date": "Jun-22",
+        "size": 336350,
+        "buyers": "CBREI",
+        "name": null,
+        "submarket": "Brooklyn",
+        "cap_rate": "3.5%",
+        "zoning": null
+      },
+      {
+        "address": "12555 Flatlands",
+        "price": 230000000,
+        "date": "Jun-22",
+        "size": 211000,
+        "buyers": "CBREI",
+        "name": null,
+        "submarket": "Brooklyn",
+        "cap_rate": "3.5%",
+        "zoning": null
+      }
+    ]
+  },
+  "demographic_trends": {
+    "population_growth": [
+      "As of Q1 2024, Brooklyn houses over 2.8 million residents, or 31% of New York City’s total population",
+      "Brooklyn’s consumer base is equivalent to that of Chicago’s while compromising only a third of Chicago’s land area",
+      "In general, the New York City Boroughs post the highest density per mile in the United States",
+      "The aggregate consumer spending power within a ten-mile radius is over $75 billion with over 2.5 million households projected by 2028, according to CoStar"
+    ],
+    "income_growth": [
+      "The average household income within a two-mile radius is approximately $160,000, including over $30,000 in average annual household spending"
+    ],
+    "spending_data": []
+  },
+  "proximity_insights": {
+    "highways": [],
+    "ports": [
+      {
+        "name": "Red Hook Container Terminal",
+        "distance": "Adjacent"
+      }
+    ],
+    "airports": [
+      {
+        "name": "JFK",
+        "distance": "40 minutes"
+      },
+      {
+        "name": "LaGuardia",
+        "distance": "40 minutes"
+      },
+      {
+        "name": "Newark International Airport",
+        "distance": "5 MILES"
+      },
+      {
+        "name": "LaGuardia Airport",
+        "distance": "11 MILES"
+      },
+      {
+        "name": "JFK Airport",
+        "distance": "20 MILES"
+      }
+    ],
+    "major_tenants": [],
+    "location": [
+      "Brooklyn’s waterfront",
+      "Red Hook logistics submarket",
+      "Downtown Manhattan"
+    ]
+  },
+  "zoning_overlays": []
+}
