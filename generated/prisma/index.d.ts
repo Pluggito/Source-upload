@@ -997,11 +997,11 @@ export namespace Prisma {
   export type GeminiResponseGroupByOutputType = {
     id: string
     createdAt: Date
-    supplyPipeline: JsonValue
-    landSaleComparables: JsonValue
-    demographicTrends: JsonValue
-    proximityInsights: JsonValue
-    zoningOverlays: JsonValue
+    supplyPipeline: JsonValue | null
+    landSaleComparables: JsonValue | null
+    demographicTrends: JsonValue | null
+    proximityInsights: JsonValue | null
+    zoningOverlays: JsonValue | null
     _count: GeminiResponseCountAggregateOutputType | null
     _min: GeminiResponseMinAggregateOutputType | null
     _max: GeminiResponseMaxAggregateOutputType | null
@@ -1069,11 +1069,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       createdAt: Date
-      supplyPipeline: Prisma.JsonValue
-      landSaleComparables: Prisma.JsonValue
-      demographicTrends: Prisma.JsonValue
-      proximityInsights: Prisma.JsonValue
-      zoningOverlays: Prisma.JsonValue
+      supplyPipeline: Prisma.JsonValue | null
+      landSaleComparables: Prisma.JsonValue | null
+      demographicTrends: Prisma.JsonValue | null
+      proximityInsights: Prisma.JsonValue | null
+      zoningOverlays: Prisma.JsonValue | null
     }, ExtArgs["result"]["geminiResponse"]>
     composites: {}
   }
@@ -1698,7 +1698,7 @@ export namespace Prisma {
     /**
      * The data needed to create a GeminiResponse.
      */
-    data: XOR<GeminiResponseCreateInput, GeminiResponseUncheckedCreateInput>
+    data?: XOR<GeminiResponseCreateInput, GeminiResponseUncheckedCreateInput>
   }
 
   /**
@@ -1905,11 +1905,12 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -1927,6 +1928,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -1999,21 +2008,21 @@ export namespace Prisma {
     NOT?: GeminiResponseWhereInput | GeminiResponseWhereInput[]
     id?: StringFilter<"GeminiResponse"> | string
     createdAt?: DateTimeFilter<"GeminiResponse"> | Date | string
-    supplyPipeline?: JsonFilter<"GeminiResponse">
-    landSaleComparables?: JsonFilter<"GeminiResponse">
-    demographicTrends?: JsonFilter<"GeminiResponse">
-    proximityInsights?: JsonFilter<"GeminiResponse">
-    zoningOverlays?: JsonFilter<"GeminiResponse">
+    supplyPipeline?: JsonNullableFilter<"GeminiResponse">
+    landSaleComparables?: JsonNullableFilter<"GeminiResponse">
+    demographicTrends?: JsonNullableFilter<"GeminiResponse">
+    proximityInsights?: JsonNullableFilter<"GeminiResponse">
+    zoningOverlays?: JsonNullableFilter<"GeminiResponse">
   }
 
   export type GeminiResponseOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    supplyPipeline?: SortOrder
-    landSaleComparables?: SortOrder
-    demographicTrends?: SortOrder
-    proximityInsights?: SortOrder
-    zoningOverlays?: SortOrder
+    supplyPipeline?: SortOrderInput | SortOrder
+    landSaleComparables?: SortOrderInput | SortOrder
+    demographicTrends?: SortOrderInput | SortOrder
+    proximityInsights?: SortOrderInput | SortOrder
+    zoningOverlays?: SortOrderInput | SortOrder
   }
 
   export type GeminiResponseWhereUniqueInput = Prisma.AtLeast<{
@@ -2022,21 +2031,21 @@ export namespace Prisma {
     OR?: GeminiResponseWhereInput[]
     NOT?: GeminiResponseWhereInput | GeminiResponseWhereInput[]
     createdAt?: DateTimeFilter<"GeminiResponse"> | Date | string
-    supplyPipeline?: JsonFilter<"GeminiResponse">
-    landSaleComparables?: JsonFilter<"GeminiResponse">
-    demographicTrends?: JsonFilter<"GeminiResponse">
-    proximityInsights?: JsonFilter<"GeminiResponse">
-    zoningOverlays?: JsonFilter<"GeminiResponse">
+    supplyPipeline?: JsonNullableFilter<"GeminiResponse">
+    landSaleComparables?: JsonNullableFilter<"GeminiResponse">
+    demographicTrends?: JsonNullableFilter<"GeminiResponse">
+    proximityInsights?: JsonNullableFilter<"GeminiResponse">
+    zoningOverlays?: JsonNullableFilter<"GeminiResponse">
   }, "id">
 
   export type GeminiResponseOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    supplyPipeline?: SortOrder
-    landSaleComparables?: SortOrder
-    demographicTrends?: SortOrder
-    proximityInsights?: SortOrder
-    zoningOverlays?: SortOrder
+    supplyPipeline?: SortOrderInput | SortOrder
+    landSaleComparables?: SortOrderInput | SortOrder
+    demographicTrends?: SortOrderInput | SortOrder
+    proximityInsights?: SortOrderInput | SortOrder
+    zoningOverlays?: SortOrderInput | SortOrder
     _count?: GeminiResponseCountOrderByAggregateInput
     _max?: GeminiResponseMaxOrderByAggregateInput
     _min?: GeminiResponseMinOrderByAggregateInput
@@ -2048,81 +2057,81 @@ export namespace Prisma {
     NOT?: GeminiResponseScalarWhereWithAggregatesInput | GeminiResponseScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"GeminiResponse"> | string
     createdAt?: DateTimeWithAggregatesFilter<"GeminiResponse"> | Date | string
-    supplyPipeline?: JsonWithAggregatesFilter<"GeminiResponse">
-    landSaleComparables?: JsonWithAggregatesFilter<"GeminiResponse">
-    demographicTrends?: JsonWithAggregatesFilter<"GeminiResponse">
-    proximityInsights?: JsonWithAggregatesFilter<"GeminiResponse">
-    zoningOverlays?: JsonWithAggregatesFilter<"GeminiResponse">
+    supplyPipeline?: JsonNullableWithAggregatesFilter<"GeminiResponse">
+    landSaleComparables?: JsonNullableWithAggregatesFilter<"GeminiResponse">
+    demographicTrends?: JsonNullableWithAggregatesFilter<"GeminiResponse">
+    proximityInsights?: JsonNullableWithAggregatesFilter<"GeminiResponse">
+    zoningOverlays?: JsonNullableWithAggregatesFilter<"GeminiResponse">
   }
 
   export type GeminiResponseCreateInput = {
     id?: string
     createdAt?: Date | string
-    supplyPipeline: JsonNullValueInput | InputJsonValue
-    landSaleComparables: JsonNullValueInput | InputJsonValue
-    demographicTrends: JsonNullValueInput | InputJsonValue
-    proximityInsights: JsonNullValueInput | InputJsonValue
-    zoningOverlays: JsonNullValueInput | InputJsonValue
+    supplyPipeline?: NullableJsonNullValueInput | InputJsonValue
+    landSaleComparables?: NullableJsonNullValueInput | InputJsonValue
+    demographicTrends?: NullableJsonNullValueInput | InputJsonValue
+    proximityInsights?: NullableJsonNullValueInput | InputJsonValue
+    zoningOverlays?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type GeminiResponseUncheckedCreateInput = {
     id?: string
     createdAt?: Date | string
-    supplyPipeline: JsonNullValueInput | InputJsonValue
-    landSaleComparables: JsonNullValueInput | InputJsonValue
-    demographicTrends: JsonNullValueInput | InputJsonValue
-    proximityInsights: JsonNullValueInput | InputJsonValue
-    zoningOverlays: JsonNullValueInput | InputJsonValue
+    supplyPipeline?: NullableJsonNullValueInput | InputJsonValue
+    landSaleComparables?: NullableJsonNullValueInput | InputJsonValue
+    demographicTrends?: NullableJsonNullValueInput | InputJsonValue
+    proximityInsights?: NullableJsonNullValueInput | InputJsonValue
+    zoningOverlays?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type GeminiResponseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplyPipeline?: JsonNullValueInput | InputJsonValue
-    landSaleComparables?: JsonNullValueInput | InputJsonValue
-    demographicTrends?: JsonNullValueInput | InputJsonValue
-    proximityInsights?: JsonNullValueInput | InputJsonValue
-    zoningOverlays?: JsonNullValueInput | InputJsonValue
+    supplyPipeline?: NullableJsonNullValueInput | InputJsonValue
+    landSaleComparables?: NullableJsonNullValueInput | InputJsonValue
+    demographicTrends?: NullableJsonNullValueInput | InputJsonValue
+    proximityInsights?: NullableJsonNullValueInput | InputJsonValue
+    zoningOverlays?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type GeminiResponseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplyPipeline?: JsonNullValueInput | InputJsonValue
-    landSaleComparables?: JsonNullValueInput | InputJsonValue
-    demographicTrends?: JsonNullValueInput | InputJsonValue
-    proximityInsights?: JsonNullValueInput | InputJsonValue
-    zoningOverlays?: JsonNullValueInput | InputJsonValue
+    supplyPipeline?: NullableJsonNullValueInput | InputJsonValue
+    landSaleComparables?: NullableJsonNullValueInput | InputJsonValue
+    demographicTrends?: NullableJsonNullValueInput | InputJsonValue
+    proximityInsights?: NullableJsonNullValueInput | InputJsonValue
+    zoningOverlays?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type GeminiResponseCreateManyInput = {
     id?: string
     createdAt?: Date | string
-    supplyPipeline: JsonNullValueInput | InputJsonValue
-    landSaleComparables: JsonNullValueInput | InputJsonValue
-    demographicTrends: JsonNullValueInput | InputJsonValue
-    proximityInsights: JsonNullValueInput | InputJsonValue
-    zoningOverlays: JsonNullValueInput | InputJsonValue
+    supplyPipeline?: NullableJsonNullValueInput | InputJsonValue
+    landSaleComparables?: NullableJsonNullValueInput | InputJsonValue
+    demographicTrends?: NullableJsonNullValueInput | InputJsonValue
+    proximityInsights?: NullableJsonNullValueInput | InputJsonValue
+    zoningOverlays?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type GeminiResponseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplyPipeline?: JsonNullValueInput | InputJsonValue
-    landSaleComparables?: JsonNullValueInput | InputJsonValue
-    demographicTrends?: JsonNullValueInput | InputJsonValue
-    proximityInsights?: JsonNullValueInput | InputJsonValue
-    zoningOverlays?: JsonNullValueInput | InputJsonValue
+    supplyPipeline?: NullableJsonNullValueInput | InputJsonValue
+    landSaleComparables?: NullableJsonNullValueInput | InputJsonValue
+    demographicTrends?: NullableJsonNullValueInput | InputJsonValue
+    proximityInsights?: NullableJsonNullValueInput | InputJsonValue
+    zoningOverlays?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type GeminiResponseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplyPipeline?: JsonNullValueInput | InputJsonValue
-    landSaleComparables?: JsonNullValueInput | InputJsonValue
-    demographicTrends?: JsonNullValueInput | InputJsonValue
-    proximityInsights?: JsonNullValueInput | InputJsonValue
-    zoningOverlays?: JsonNullValueInput | InputJsonValue
+    supplyPipeline?: NullableJsonNullValueInput | InputJsonValue
+    landSaleComparables?: NullableJsonNullValueInput | InputJsonValue
+    demographicTrends?: NullableJsonNullValueInput | InputJsonValue
+    proximityInsights?: NullableJsonNullValueInput | InputJsonValue
+    zoningOverlays?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2150,14 +2159,14 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
-  export type JsonFilter<$PrismaModel = never> =
+  export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonFilterBase<$PrismaModel = never> = {
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -2172,6 +2181,11 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type GeminiResponseCountOrderByAggregateInput = {
@@ -2225,14 +2239,14 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -2247,9 +2261,9 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -2326,14 +2340,25 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
