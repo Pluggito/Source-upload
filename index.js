@@ -130,6 +130,7 @@ Analyze this real estate document and return a complete and structured JSON obje
     cleanJSON = safeParseJSON(aiResponse);
 
     if (!isStructuredJSON(cleanJSON)) {
+      console.error("❌ Invalid JSON structure:", cleanJSON);
       throw new Error("AI returned unstructured or incomplete JSON.");
     }
 
@@ -150,14 +151,17 @@ Analyze this real estate document and return a complete and structured JSON obje
 
     res.json({ success: true, data: cleanJSON });
   } catch (err) {
-    console.error(
-      "❌ Failed to process file or call Gemini:",
-      err.stack || err.message
-    );
-    res
-      .status(500)
-      .json({ error: "Failed to process file or generate structured data." });
-    console.log(err);
+    console.error("❌ Error details:", {
+      message: err.message,
+      stack: err.stack,
+      response: aiResponse,
+      cleanJSON: cleanJSON
+    });
+    
+    res.status(500).json({ 
+      error: "Failed to process file or generate structured data.",
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 });
 
