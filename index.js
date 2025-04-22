@@ -97,8 +97,8 @@ Analyze this real estate document and return a complete and structured JSON obje
 
 3. demographic_trends: {
   population_growth:{insights: string, description: string, year: string, capital: string,  population: number, state: string}[],
-  income: {insights: string, description: string, income: number}[],
-  spending: {insights: string, description: string, amount: number}[],
+  income: {insights: string, description: string, income: number, year: string}[],
+  spending: {insights: string, description: string, amount: number, category: string}[],
 }
 
 4. proximity_insights: {
