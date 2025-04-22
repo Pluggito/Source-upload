@@ -17,9 +17,9 @@ datasource db {
 model GeminiResponse {
   id                  String   @id @default(cuid())
   createdAt           DateTime @default(now())
-  supplyPipeline      Json
-  landSaleComparables Json
-  demographicTrends   Json
-  proximityInsights   Json
-  zoningOverlays      Json
+  supplyPipeline      Json?
+  landSaleComparables Json?
+  demographicTrends   Json?
+  proximityInsights   Json?
+  zoningOverlays      Json?
 }
