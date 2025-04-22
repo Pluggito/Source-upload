@@ -62,6 +62,10 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     });
   }
 
+  // Limit the PDF text to a reasonable size
+  const maxTextLength = 8000; // Adjust this value based on your needs
+  const truncatedText = pdfText.slice(0, maxTextLength);
+
   const prompt = `
 Analyze this real estate document and return a complete and structured JSON object strictly matching the following format. Ensure all sections are included, even if some values are null or empty. Do not omit any fields.
 
@@ -127,7 +131,7 @@ Analyze this real estate document and return a complete and structured JSON obje
 
 - Carefully extract and map the relevant data from the PDF to this format.
 - Return only valid JSON and  PDF Content:
-  ${pdfText}
+  ${truncatedText}
   `;
 
   let aiResponse, cleanJSON;
@@ -156,7 +160,9 @@ Analyze this real estate document and return a complete and structured JSON obje
         headers: {
           'Authorization': `Bearer ${process.env.LLAMA_API_KEY}`,
           'Content-Type': 'application/json'
-        }
+        },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity
       }
     );
 
