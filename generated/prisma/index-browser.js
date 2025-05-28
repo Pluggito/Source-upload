@@ -120,6 +120,12 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  datasource: 'datasource'
+};
+
 exports.Prisma.GeminiResponseScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -158,6 +164,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
+  Address: 'Address',
   GeminiResponse: 'GeminiResponse'
 };
 

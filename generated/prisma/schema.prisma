@@ -15,6 +15,12 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model Address {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  datasource Json?
+}
+
 model GeminiResponse {
   id                  String   @id @default(cuid())
   createdAt           DateTime @default(now())

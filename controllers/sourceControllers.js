@@ -18,8 +18,85 @@ if (!fs.existsSync(storageDir)) {
 }
 
 const enrishAddress = async (req, res, next) => {
- res.status(200).json({message: 'Active'})
+  const file = req.file;
+
+  if (!file || file.mimetype !== "application/pdf") {
+    return res.status(400).json({ error: "Invalid file type. PDF required." });
+  }
+
+  let buffer, pdfText;
+  try {
+    buffer = fs.readFileSync(file.path);
+    const pdfData = await pdfParse(buffer);
+    pdfText = pdfData.text;
+  } catch (err) {
+    console.error("❌ Failed to parse PDF:", err.stack || err.message);
+    return res.status(500).json({ error: "Error parsing PDF file." });
+  } finally {
+    fs.unlink(file.path, (err) => {
+      if (err) console.warn("⚠️ Failed to delete uploaded file:", err.message);
+    });
+  }
+
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const prompt = `
+Extract the address from this real estate PDF and return JSON like:
+{
+  "houseNumber": "280",
+  "streetName": "Richard Street",
+  "borough": "Brooklyn",
+  "zip": "11208"
+}
+
+PDF:
+${pdfText.slice(0, 12000)}
+`;
+
+  try {
+    const result = await model.generateContent(prompt);
+    const aiResponse = result.response.text().trim();
+    const address = safeParseJSON(aiResponse);
+
+    if (!address?.houseNumber || !address?.streetName || !address?.borough) {
+      return res.status(400).json({ error: "Incomplete address data from AI." });
+    }
+
+    // 🛰 Fetch enriched data from NYC Geoclient API
+    const query = new URLSearchParams({
+      houseNumber: address.houseNumber,
+      street: address.streetName,
+      borough: address.borough,
+      zip: address.zip ?? "", // optional
+    });
+
+    const geoRes = await fetch(
+      `https://api.nyc.gov/geoclient/v2/address.json?${query.toString()}`,
+      {
+        headers: { "Ocp-Apim-Subscription-Key": process.env.NYC_GEO_KEY },
+      }
+    );
+
+    const geoData = await geoRes.json();
+
+    // 🗂 Save to DB
+    await prisma.address.create({
+      data: {
+        datasource: geoData,
+      },
+    });
+
+    res.json({ success: true, message: "Address enriched and saved.", geoData });
+  } catch (err) {
+    console.error("❌ Address enrichment error:", err.message || err.stack);
+    res.status(500).json({
+      error: "Failed to extract/enrich address.",
+      details: process.env.NODE_ENV === "development" ? err.message : undefined,
+    });
+  }
+
+  next()
 };
+
 
 const sourceUpload = async (req, res) => {
   const file = req.file;
@@ -229,4 +306,4 @@ const getLatestUplaod = async (req, res) => {
   }
 };
 
-module.exports = {  getUpload, getLatestUplaod, sourceUpload };
+module.exports = {  getUpload, getLatestUplaod, sourceUpload,};
