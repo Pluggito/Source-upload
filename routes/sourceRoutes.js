@@ -4,23 +4,25 @@ const multer = require("multer");
 const {
   sourceUpload,
   getUpload,
-  getLatestUplaod,
-  enrishAddress
+  getLatestUpload,
+  getTravelTime,
+  enrichAddress
 } = require('../controllers/sourceControllers');
 
 
 const upload = multer({
   dest: "uploads/",
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
-}); 
+});
 
-// POST: First enrich the address, then upload
 router.route('/uploads').post(upload.single("file"), sourceUpload);
 
 // GET: Fetch all uploads
 router.route('/results').get(getUpload);
 
 // GET: Fetch latest upload
-router.route('/latest').get(getLatestUplaod);
+router.route('/latest').get(getLatestUpload);
+
+router.route('/travel').post(getTravelTime);
 
 module.exports = router;

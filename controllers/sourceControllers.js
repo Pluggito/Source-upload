@@ -3,6 +3,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const dotenv = require("dotenv");
+const axios = require('axios');
 
 dotenv.config();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -259,6 +260,7 @@ function isStructuredJSON(json) {
   );
 }
 
+
 const getUpload = async (req, res) => {
   try {
     const results = await prisma.geminiResponse.findMany({
@@ -271,7 +273,7 @@ const getUpload = async (req, res) => {
   }
 };
 
-const getLatestUplaod = async (req, res) => {
+const getLatestUpload = async (req, res) => {
   try {
     const latest = await prisma.geminiResponse.findFirst({
       orderBy: {
@@ -306,4 +308,54 @@ const getLatestUplaod = async (req, res) => {
   }
 };
 
-module.exports = {  getUpload, getLatestUplaod, sourceUpload,};
+const getTravelTime = async (req, res) => {
+  const { start, ends } = req.body;
+
+  if (!start || !ends || !Array.isArray(ends) || ends.length === 0) {
+    return res.status(400).json({ error: 'Missing start coordinate or ends array' });
+  }
+
+  try {
+    // Build locations array: first is start, then all ends
+    const locations = [start, ...ends];
+
+    // sources = [0] (start)
+    // destinations = [1, 2, ..., ends.length]
+    const destinations = ends.map((_, i) => i + 1);
+
+    const orsRes = await axios.post(
+      'https://api.openrouteservice.org/v2/matrix/driving-car',
+      {
+        locations,
+        sources: [0],
+        destinations,
+        metrics: ['duration', 'distance'],
+      },
+      {
+        headers: {
+          Authorization: process.env.ORS_API_KEY,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    res.status(200).json({
+      durations: orsRes.data.durations[0],   // times from start to each destination
+      distances: orsRes.data.distances[0],   // distances from start to each destination
+    });
+  } catch (error) {
+    if (error.response) {
+      console.error('ORS Error:', error.response.data);
+      return res.status(error.response.status).json({
+        error: 'ORS request failed',
+        details: error.response.data,
+      });
+    }
+    console.error('API Error:', error.message);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+
+module.exports = {  getUpload, getLatestUpload, sourceUpload, getTravelTime};
