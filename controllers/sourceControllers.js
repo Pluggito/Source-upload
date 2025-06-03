@@ -247,6 +247,7 @@ function safeParseJSON(text) {
   }
 }
 
+
 // Basic structural check for expected JSON format
 function isStructuredJSON(json) {
   return (
@@ -356,6 +357,64 @@ const getTravelTime = async (req, res) => {
   }
 };
 
+const getRoute = async (req, res) => {
+  let { start, end } = req.body;
+
+  // Handle string coordinates: "40.6793,-74.016"
+  if (typeof start === 'string') {
+    start = start.split(',').map(coord => parseFloat(coord.trim()));
+  }
+
+  if (typeof end === 'string') {
+    end = end.split(',').map(coord => parseFloat(coord.trim()));
+  }
+
+  // Validate
+  if (
+    !Array.isArray(start) || start.length !== 2 || start.some(isNaN) ||
+    !Array.isArray(end) || end.length !== 2 || end.some(isNaN)
+  ) {
+    return res.status(400).json({ error: 'Missing or invalid start or end coordinates' });
+  }
+
+  
+if (!process.env.TOMTOM_API_KEY) {  
+  return res.status(500).json({ error: 'TOMTOM_API_KEY is not set' });
+}
 
 
-module.exports = {  getUpload, getLatestUpload, sourceUpload, getTravelTime};
+  try {
+    const url = `https://api.tomtom.com/routing/1/calculateRoute/${start[0]},${start[1]}:${end[0]},${end[1]}/json?key=${process.env.TOMTOM_API_KEY}&computeBestOrder=true&routeType=fastest&travelMode=car&traffic=true`;
+
+    const tomtomRes = await axios.get(url);
+
+    if (!tomtomRes.data || !tomtomRes.data.routes || tomtomRes.data.routes.length === 0) {
+      return res.status(404).json({ error: 'No route found' });
+    }
+
+    const route = tomtomRes.data.routes[0];
+    res.status(200).json({
+      distance: route.summary.lengthInMeters,
+      duration: route.summary.travelTimeInSeconds,
+      polyline: route.legs[0].points.map(p => [p.latitude, p.longitude]),
+    });
+
+    console.log('Route fetched successfully:', {
+      distance: route.summary.lengthInMeters,
+      duration: route.summary.travelTimeInSeconds,
+    });
+  }
+  catch (error) {
+    if (error.response) {
+      console.error('TomTom Error:', error.response.data);
+      return res.status(error.response.status).json({
+        error: 'TomTom request failed',
+        details: error.response.data,
+      });
+    }
+    console.error('API Error:', error.message);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+module.exports = {  getUpload, getLatestUpload, sourceUpload, getTravelTime, getRoute};

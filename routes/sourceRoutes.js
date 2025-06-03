@@ -6,7 +6,8 @@ const {
   getUpload,
   getLatestUpload,
   getTravelTime,
-  enrichAddress
+  enrichAddress,
+  getRoute
 } = require('../controllers/sourceControllers');
 
 
@@ -24,5 +25,7 @@ router.route('/results').get(getUpload);
 router.route('/latest').get(getLatestUpload);
 
 router.route('/travel').post(getTravelTime);
+
+router.route('/route').post(getRoute);
 
 module.exports = router;
