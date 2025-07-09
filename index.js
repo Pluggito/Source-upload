@@ -25,12 +25,22 @@ app.use(express.json());
 
 
 // Configure CORS
-app.use(cors({
-  origin: ['https://location-analysis-drab.vercel.app', 'http://localhost:3000'],
+// Configure CORS
+{/*const corsOptions = {
+  origin: [
+    'https://location-analysis-drab.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:3001'
+  ],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));             // CORS headers for all
+app.options('*', cors(corsOptions)); */}
+
+app.use(cors());
 
 
 
