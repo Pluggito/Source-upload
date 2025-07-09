@@ -1,0 +1,36 @@
+[
+  {
+    "name": "EIA Commercial Electricity Rate Benchmark",
+    "type": "Utility Cost Benchmark",
+    "description": "The U.S. Energy Information Administration (EIA) provides authoritative data on the average price of electricity for commercial customers, published monthly on a state-by-state basis. This serves as a primary benchmark for estimating and comparing electricity expenses.",
+    "impact_per_sf": "Typically $1.50 - $4.00 per square foot annually, but varies significantly by location, building use, and climate.",
+    "expandable_bullets": [
+      "The 'price per kilowatt-hour' (kWh) is the key metric. As of early 2024, state averages for commercial customers range from ~9 cents/kWh in states like Idaho to over 25 cents/kWh in states like Hawaii and California.",
+      "Actual business costs are also driven by 'demand charges' (based on peak electricity usage) and 'time-of-use' (TOU) rates, which are not reflected in the simple average rate.",
+      "This benchmark is essential for projecting operating expenses for a new location or evaluating the energy cost burden of an existing property."
+    ],
+    "action_required": [
+      "Review the latest 'Electric Power Monthly' report from EIA.gov to find your state's average commercial rate.",
+      "Examine your actual utility bills to understand your specific rate structure, including demand charges and TOU pricing.",
+      "Consult your utility provider's official rate tariff for detailed pricing schedules applicable to your business type."
+    ],
+    "url": "https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a"
+  },
+  {
+    "name": "ISO Public Protection Classification (PPC) Program",
+    "type": "Insurance Cost Factor",
+    "description": "The Insurance Services Office (ISO) evaluates municipal fire-protection services in communities across the U.S. and assigns a PPC rating from 1 (best) to 10. Insurance companies use this rating as a primary factor in setting commercial property insurance premiums.",
+    "impact_per_sf": null,
+    "expandable_bullets": [
+      "The score is based on a comprehensive evaluation of the local fire department (50%), water supply system (40%), and emergency communication services (10%).",
+      "A lower PPC rating (e.g., a Class 2) signifies a lower risk of catastrophic fire loss to underwriters, which can translate directly to significantly lower insurance premiums compared to a property in a high-rated area (e.g., a Class 8).",
+      "This is a key example of how a property's specific location, entirely outside the control of the business owner, directly impacts operating expenses."
+    ],
+    "action_required": [
+      "Ask your commercial insurance broker to provide the specific PPC rating for your property's address.",
+      "Use this information as a critical point of comparison when evaluating new locations for expansion or relocation.",
+      "When getting insurance quotes, ensure the broker is using the correct and most up-to-date PPC rating for your location to get an accurate premium."
+    ],
+    "url": "https://www.isomitigation.com/ppc/"
+  }
+]
